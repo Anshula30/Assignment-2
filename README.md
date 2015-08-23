@@ -28,14 +28,14 @@ library(ggthemes)
 library(reshape2)
 graphics.off()  
 setInternet2(use = TRUE) 
-link_addr <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2" # Valid 8.12.2015
+link_addr <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2" 
 ```
 Code Chunk-2
 ```{r load-the-file,cache=TRUE}
 download.file(link_addr, destfile="repdata-data-StormData.csv.bz2", method="auto")
 rawload <- read.csv("repdata-data-StormData.csv.bz2",
-                    header = TRUE, sep = ",",
-                    quote = "\"",stringsAsFactors = FALSE)  # 902297 observations in CSV file
+   header = TRUE, sep = ",",
+   quote = "\"",stringsAsFactors = FALSE)
 
-num_EVtypes <- length(unique(rawload$EVTYPE)) # calc how many event types are there in the source file data
+num_EVtypes <- length(unique(rawload$EVTYPE))
 ```
