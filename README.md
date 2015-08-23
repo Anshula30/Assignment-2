@@ -56,7 +56,6 @@ bp<-barplot(rank_fatal_top$Freq, names.arg = rank_fatal_top$EVTYPE_NEW,
         xlim=c(0,6000), horiz=TRUE, beside=TRUE,
         cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
 text(0,bp, labels=NULL, cex=.65, offset=25)
-## Barplot 1b
 bp<-barplot(rank_inj_top$Freq, names.arg = rank_inj_top$EVTYPE_NEW,
             col='yellow', space=1, las=2,
             main = "Total Injuries by Event Type (1950-2011)",
@@ -69,6 +68,7 @@ box("outer")
 According to the above plot we found that Tornadoes were the leading reason for population health. Than we had some other events like heat, thunderstorm etc.
 
 Code Chunk-4, It shows the harm by the Event on the property and crop.
+
 ```r{plot2,fig.height=15, fig.width=10,fig.align='right'}
 par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
 bp<-barplot(rank_pdmg_top$SUM_PDMG, names.arg = rank_pdmg_top$EVTYPE_NEW,
