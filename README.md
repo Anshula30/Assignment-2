@@ -43,6 +43,8 @@ num_EVtypes <- length(unique(rawload$EVTYPE))
 
 ## Processing Of Data
 
+Code Chunk-3, It shows the whole processing of the data.
+
 ```{r prep-envir}
 library(data.table)
 library(stringdist)
@@ -68,11 +70,8 @@ num_EVtypes <- length(unique(rawload$EVTYPE))
 ```{r fix-evtype}
 
 valid_EV <- c("Astronomical Low Tide","Avalanche","Blizzard","Coastal Flood","Cold/Wind Chill","Debris Flow","Dense Fog","Dense Smoke","Drought","Dust Devil","Dust Storm","Excessive Heat","Extreme Cold/Wind Chill","Flash Flood","Flood","Frost/Freeze","Funnel Cloud","Freezing Fog","Hail","Heat","Heavy Rain","Heavy Snow","High Surf","High Wind","Hurricane","Ice Storm","Lake-Effect Snow","Lakeshore Flood","Lightning","Marine Hail","Marine High Wind","Marine Strong Wind","Marine Thunderstorm Wind","Rip Current","Sleet","Storm Surge/Tide","Strong Wind","Thunderstorm Wind","Tornado","Tropical Depression","Tropical Storm","Tsunami","Volcanic Ash","Waterspout","Wildfire","Winter Storm","Winter Weather")
-#valid_EV_two <- c("Seiche")  # not included - too many false positives
-
 
 uniqs_EV_raw <- unique(rawload$EVTYPE)  
-
 
 uniqs_EV_proc <- gsub("TSTM","THUNDERSTORM",uniqs_EV_raw)  # updates abbreviation for thunderstorms
 uniqs_EV_proc <- gsub("FLD","FLOOD",uniqs_EV_proc)  # updates abbreviation for flood
@@ -103,13 +102,13 @@ proc_lbl <-list()
 new_lbl <-list()
 
 for (i in seq_along(EV_best[,1])){
-      proc_lbl[i]<-row.names(EV_best[i,])  # indexes row name into orig_lbl vector
+      proc_lbl[i]<-row.names(EV_best[i,])  
       if (EV_best[i,which.min(EV_best[i,])]<100 ){new_lbl[i]<-names(which.min(EV_best[i,]))}
       if (row.names(EV_best[i,]) == "SEICHE"){new_lbl[i]<-"SEICHE"}  
 }
 
 
-df_EV_tx <-as.data.frame(cbind(raw_lbl, proc_lbl, new_lbl),stringsAsFactors=FALSE) #consolidate 
+df_EV_tx <-as.data.frame(cbind(raw_lbl, proc_lbl, new_lbl),stringsAsFactors=FALSE) 
 names(df_EV_tx)[1]<-"EVTYPE"
 names(df_EV_tx)[3]<-"EVTYPE_NEW"
 
@@ -124,12 +123,11 @@ remove(short_raw, df_EV_tx)
 
 ```
 
-
 ## Conclusion
 
 To do the conclusion we have the following plots
 
-Code Chunk-3, It shows the rate of people died and got injured during the event.
+Code Chunk-4, It shows the rate of people died and got injured during the event.
 
 ```{r plot1, fig.height=15, fig.width=10,fig.align='right'}
 par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
@@ -151,7 +149,7 @@ box("outer")
 ```
 According to the above plot we found that Tornadoes were the leading reason for population health. Than we had some other events like heat, thunderstorm etc.
 
-Code Chunk-4, It shows the harm by the Event on the property and crop.
+Code Chunk-5, It shows the harm by the Event on the property and crop.
 
 ```{r plot2,fig.height=15, fig.width=10,fig.align='right'}
 par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
