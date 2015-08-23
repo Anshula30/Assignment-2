@@ -44,23 +44,23 @@ num_EVtypes <- length(unique(rawload$EVTYPE))
 
 To do the conclusion we have the following plots
 
-``` {r plot1, fig.height=12, fig.width=8,fig.align='center'}
-+par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))## set up grid for multiple charts
-+## Barplot 1a
-+bp<-barplot(rank_fatal_top$Freq, names.arg = rank_fatal_top$EVTYPE_NEW,
-+        col='yellow', space=1, las=2,
-+        main = "Total Fatalities by Event Type (1950-2011)",
-+        xlab="Fatalities",
-+        xlim=c(0,6000), horiz=TRUE, beside=TRUE,
-+        cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
-+text(0,bp, labels=NULL, cex=.65, offset=25)
-+## Barplot 1b
-+bp<-barplot(rank_inj_top$Freq, names.arg = rank_inj_top$EVTYPE_NEW,
-+            col='red', space=1, las=2,
-+            main = "Total Injuries by Event Type (1950-2011)",
-+            xlab="Injuries",
-+            xlim=c(0,90000), horiz=TRUE, beside=TRUE,
-+            cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
-+text(0,bp, labels=NULL, cex=.65, offset=25)
-+box("outer")
-+```
+``` {r plot1, fig.height=15, fig.width=10,fig.align='right'}
+par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))## set up grid for multiple charts
+## Barplot 1a
+bp<-barplot(rank_fatal_top$Freq, names.arg = rank_fatal_top$EVTYPE_NEW,
+       col='white', space=1, las=2,
+       main = "Total Fatalities by Event Type (1950-2011)",
+        xlab="Fatal",
+        xlim=c(0,6000), horiz=TRUE, beside=TRUE,
+        cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
+text(0,bp, labels=NULL, cex=.65, offset=25)
+## Barplot 1b
+bp<-barplot(rank_inj_top$Freq, names.arg = rank_inj_top$EVTYPE_NEW,
+            col='yellow', space=1, las=2,
+            main = "Total Injuries by Event Type (1950-2011)",
+            xlab="Injured",
+            xlim=c(0,90000), horiz=TRUE, beside=TRUE,
+            cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
+text(0,bp, labels=NULL, cex=.65, offset=25)
+box("outer")
+```
