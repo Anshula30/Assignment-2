@@ -83,11 +83,11 @@ uniqs_EV_proc <- gsub("RECORD","EXTREME",uniqs_EV_proc)  # updates phrase "recor
 uniqs_EV_proc <- gsub("FUNNEL","FUNNEL CLOUD",uniqs_EV_proc, fixed=TRUE)  
 uniqs_EV_proc <- gsub("WIND","HIGH WIND",uniqs_EV_proc, fixed=TRUE)  
 
-uniqs_EV_proc <- gsub("COLD","COLD/WIND CHILL",uniqs_EV_proc)  # 
-uniqs_EV_proc <- gsub("FROST","FROST/FREEZE",uniqs_EV_proc)  # 
-uniqs_EV_proc <- gsub("FREEZE","FROST/FREEZE",uniqs_EV_proc)  # 
-uniqs_EV_proc <- gsub("TIDE","SURGE/TIDE",uniqs_EV_proc)  # 
-uniqs_EV_proc <- gsub("SURGE","SURGE/TIDE",uniqs_EV_proc)  # 
+uniqs_EV_proc <- gsub("COLD","COLD/WIND CHILL",uniqs_EV_proc)  
+uniqs_EV_proc <- gsub("FROST","FROST/FREEZE",uniqs_EV_proc)  
+uniqs_EV_proc <- gsub("FREEZE","FROST/FREEZE",uniqs_EV_proc)  
+uniqs_EV_proc <- gsub("TIDE","SURGE/TIDE",uniqs_EV_proc)  
+uniqs_EV_proc <- gsub("SURGE","SURGE/TIDE",uniqs_EV_proc)   
 
 for (i in seq_along(uniqs_EV_proc)){
       if (grepl("HURRICANE",toupper(uniqs_EV_proc[i]))){
@@ -108,18 +108,18 @@ for (i in seq_along(EV_best[,1])){
       if (row.names(EV_best[i,]) == "SEICHE"){new_lbl[i]<-"SEICHE"}  
 }
 
-# compile all of the values held in tmp list into a "tidy data" dataframe
+
 df_EV_tx <-as.data.frame(cbind(raw_lbl, proc_lbl, new_lbl),stringsAsFactors=FALSE) #consolidate 
 names(df_EV_tx)[1]<-"EVTYPE"
 names(df_EV_tx)[3]<-"EVTYPE_NEW"
 
-# use relevant columns of raw data
+
 short_raw<-rawload[,c("EVTYPE","FATALITIES","INJURIES","PROPDMG","PROPDMGEXP","CROPDMG","CROPDMGEXP")]
 
-# merge the dataframe of processed event types with the data frame of raw data
+
 simple_df<-merge(short_raw,df_EV_tx,by="EVTYPE", all.x=TRUE, all.y=FALSE, sort=FALSE)
 
-# clean up environment
+
 remove(short_raw, df_EV_tx)  
 
 ```
