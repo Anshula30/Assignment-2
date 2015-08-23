@@ -39,3 +39,8 @@ rawload <- read.csv("repdata-data-StormData.csv.bz2",
 
 num_EVtypes <- length(unique(rawload$EVTYPE))
 ```
+
+## Processing
+
+
+
