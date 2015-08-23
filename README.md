@@ -21,11 +21,11 @@ For processing the data some liberaries were loaded
 Code Chunk-1
 ```{r prep-envir}
 library(data.table)
-library(stringdist)
+   library(stringdist)
 library(plyr)
-library(ggplot2)
+   library(ggplot2)
 library(ggthemes)
-library(reshape2)
+   library(reshape2)
 graphics.off()  
 setInternet2(use = TRUE) 
 link_addr <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2" 
