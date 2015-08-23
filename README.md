@@ -131,7 +131,7 @@ To do the conclusion we have the following plots
 
 Code Chunk-3, It shows the rate of people died and got injured during the event.
 
-```r{plot1, fig.height=15, fig.width=10,fig.align='right'}
+```{r plot1, fig.height=15, fig.width=10,fig.align='right'}
 par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
 bp<-barplot(rank_fatal_top$Freq, names.arg = rank_fatal_top$EVTYPE_NEW,
        col='white', space=1, las=2,
@@ -153,7 +153,7 @@ According to the above plot we found that Tornadoes were the leading reason for 
 
 Code Chunk-4, It shows the harm by the Event on the property and crop.
 
-```r{plot2,fig.height=15, fig.width=10,fig.align='right'}
+```{r plot2,fig.height=15, fig.width=10,fig.align='right'}
 par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
 bp<-barplot(rank_pdmg_top$SUM_PDMG, names.arg = rank_pdmg_top$EVTYPE_NEW,
             col='red', space=1, las=2,
