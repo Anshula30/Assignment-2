@@ -69,7 +69,7 @@ box("outer")
 According to the above plot we found that Tornadoes were the leading reason for population health. Than we had some other events like heat, thunderstorm etc.
 
 Code Chunk-4, It shows the harm by the Event on the property and crop.
-``` {r plot2,fig.height=15, fig.width=10,fig.align='right'}
+```r{plot2,fig.height=15, fig.width=10,fig.align='right'}
 par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
 bp<-barplot(rank_pdmg_top$SUM_PDMG, names.arg = rank_pdmg_top$EVTYPE_NEW,
             col='red', space=1, las=2,
