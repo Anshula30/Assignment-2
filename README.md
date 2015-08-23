@@ -18,6 +18,7 @@ The data used foe the following data analysis was found at the following URL.
 
 For processing the data some liberaries were loaded
 
+Code Chunk-1
 ```{r prep-envir}
 +library(data.table)
 +library(stringdist)
