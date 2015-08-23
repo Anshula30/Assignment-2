@@ -40,11 +40,13 @@ rawload <- read.csv("repdata-data-StormData.csv.bz2",
 num_EVtypes <- length(unique(rawload$EVTYPE))
 ```
 
+##
+
 ## Conclusion
 
 To do the conclusion we have the following plots
 
-Code Chunk-3
+Code Chunk-3, It shows the rate of people died and got injured during the event.
 ``` {r plot1, fig.height=15, fig.width=10,fig.align='right'}
 par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
 bp<-barplot(rank_fatal_top$Freq, names.arg = rank_fatal_top$EVTYPE_NEW,
@@ -60,6 +62,27 @@ bp<-barplot(rank_inj_top$Freq, names.arg = rank_inj_top$EVTYPE_NEW,
             main = "Total Injuries by Event Type (1950-2011)",
             xlab="Injured",
             xlim=c(0,90000), horiz=TRUE, beside=TRUE,
+            cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
+text(0,bp, labels=NULL, cex=.65, offset=25)
+box("outer")
+```
+
+Code Chunk-4, It shows the harm by the Event on the property and crop.
+``` {r plot2,fig.height=12, fig.width=8,fig.align='center'}
+par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))## set up grid for multiple charts
+ Barplot 2a
+bp<-barplot(rank_pdmg_top$SUM_PDMG, names.arg = rank_pdmg_top$EVTYPE_NEW,
+            col='blue', space=1, las=2,
+            main = "Total Property Damage by Event Type (1950-2011)",
+            xlab="Property Damage ($US billions)",
+            xlim=c(0,160), horiz=TRUE, beside=TRUE,
+            cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
+text(0,bp, labels=NULL, cex=.65, offset=25)
+bp<-barplot(rank_cdmg_top$SUM_CDMG, names.arg = rank_cdmg_top$EVTYPE_NEW,
+            col='orange', space=1, las=2,
+            main = "Total Crop Damage by Event Type (1950-2011)",
+            xlab="Crop Damage ($US billions)",
+            xlim=c(0,15), horiz=TRUE, beside=TRUE,
             cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
 text(0,bp, labels=NULL, cex=.65, offset=25)
 box("outer")
