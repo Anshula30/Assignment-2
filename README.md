@@ -28,7 +28,5 @@ Code Chunk-1
 +library(reshape2)
 +graphics.off()  # set graphics to null device
 +setInternet2(use = TRUE) # set environment variable for https download
-+link_addr <- "https://d396qusza40orc.cloudf
-'''
-
- Code Chunk-2
+link_addr <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2" # Valid 8.12.2015
+```
