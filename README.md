@@ -15,3 +15,17 @@ This analysis two question.
 The data used foe the following data analysis was found at the following URL.
 
 "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+
+For processing the data some liberaries were loaded
+
+```{r prep-envir}
++library(data.table)
++library(stringdist)
++library(plyr)
++library(ggplot2)
++library(ggthemes)
++library(reshape2)
++graphics.off()  # set graphics to null device
++setInternet2(use = TRUE) # set environment variable for https download
++link_addr <- "https://d396qusza40orc.cloudf
+'''
