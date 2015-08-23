@@ -44,12 +44,12 @@ num_EVtypes <- length(unique(rawload$EVTYPE))
 
 To do the conclusion we have the following plots
 
+Code Chunk-3
 ``` {r plot1, fig.height=15, fig.width=10,fig.align='right'}
-par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))## set up grid for multiple charts
-## Barplot 1a
+par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
 bp<-barplot(rank_fatal_top$Freq, names.arg = rank_fatal_top$EVTYPE_NEW,
        col='white', space=1, las=2,
-       main = "Total Fatalities by Event Type (1950-2011)",
+       main = "Number of Fatal People by Event from 1950-2011",
         xlab="Fatal",
         xlim=c(0,6000), horiz=TRUE, beside=TRUE,
         cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
