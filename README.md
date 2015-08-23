@@ -128,11 +128,11 @@ remove(short_raw, df_EV_tx)
 
 ```
 
-## Conclusion
+## Results
 
-To do the conclusion we have the following plots
+The following plot shows the Health effects of Weather on Population
 
-Code Chunk-4, It shows the rate of people died and got injured during the event.
+Code Chunk-4 
 
 ```{r plot1, fig.height=15, fig.width=10,fig.align='right'}
 par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
@@ -154,7 +154,9 @@ box("outer")
 ```
 According to the above plot we found that Tornadoes were the leading reason for population health. Than we had some other events like heat, thunderstorm etc. (Answer-1)
 
-Code Chunk-5, It shows the harm by the Event on the property and crop.
+The following plot shows the Property and crop damage by the Weather Events
+
+Code Chunk-5
 
 ```{r plot2,fig.height=15, fig.width=10,fig.align='right'}
 par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
