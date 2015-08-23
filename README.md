@@ -18,6 +18,7 @@ The data used foe the following data analysis was found at the following URL.
 For processing the data some liberaries were loaded
 
 Code Chunk-1
+
 ```{r prep-envir}
 library(data.table)
    library(stringdist)
@@ -30,6 +31,7 @@ setInternet2(use = TRUE)
 link_addr <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2" 
 ```
 Code Chunk-2
+
 ```{r load-the-file,cache=TRUE}
 download.file(link_addr, destfile="repdata-data-StormData.csv.bz2", method="auto")
 rawload <- read.csv("repdata-data-StormData.csv.bz2",
