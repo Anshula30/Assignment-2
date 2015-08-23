@@ -68,19 +68,18 @@ box("outer")
 ```
 
 Code Chunk-4, It shows the harm by the Event on the property and crop.
-``` {r plot2,fig.height=12, fig.width=8,fig.align='center'}
-par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))## set up grid for multiple charts
- Barplot 2a
+``` {r plot2,fig.height=15, fig.width=10,fig.align='right'}
+par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))
 bp<-barplot(rank_pdmg_top$SUM_PDMG, names.arg = rank_pdmg_top$EVTYPE_NEW,
-            col='blue', space=1, las=2,
-            main = "Total Property Damage by Event Type (1950-2011)",
+            col='red', space=1, las=2,
+            main = "Property Damage by Event",
             xlab="Property Damage ($US billions)",
             xlim=c(0,160), horiz=TRUE, beside=TRUE,
             cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
 text(0,bp, labels=NULL, cex=.65, offset=25)
 bp<-barplot(rank_cdmg_top$SUM_CDMG, names.arg = rank_cdmg_top$EVTYPE_NEW,
-            col='orange', space=1, las=2,
-            main = "Total Crop Damage by Event Type (1950-2011)",
+            col='blue', space=1, las=2,
+            main = "Crop Damage by Event",
             xlab="Crop Damage ($US billions)",
             xlim=c(0,15), horiz=TRUE, beside=TRUE,
             cex.axis=.75, cex.lab=.75,cex.main=1, cex.names=.75)
