@@ -16,8 +16,7 @@ The data used for this data analysis is NOAA storm database from 1950 to Novembe
 
 ## Data Processing
 
-The data used foe the following data analysis was found at the following URL.
-
+The analysis was done on Storm Data Events
 "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
 
 For processing the data some liberaries were loaded
