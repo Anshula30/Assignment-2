@@ -44,7 +44,7 @@ num_EVtypes <- length(unique(rawload$EVTYPE))
 
 To do the conclusion we have the following plots
 
-`` {r plot1, fig.height=12, fig.width=8,fig.align='center'}
+``` {r plot1, fig.height=12, fig.width=8,fig.align='center'}
 +par(mfrow = c(2, 1), mar = c(5,12,4,12), oma = c(0, 0, 2, 0))## set up grid for multiple charts
 +## Barplot 1a
 +bp<-barplot(rank_fatal_top$Freq, names.arg = rank_fatal_top$EVTYPE_NEW,
