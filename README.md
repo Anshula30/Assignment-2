@@ -30,3 +30,5 @@ Code Chunk-1
 +setInternet2(use = TRUE) # set environment variable for https download
 +link_addr <- "https://d396qusza40orc.cloudf
 '''
+
+ Code Chunk-2
