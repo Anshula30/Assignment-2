@@ -7,4 +7,5 @@ Bad weather events causes health problems in people of all generations. This ana
 This analysis two question.
 
 1.Across the United States, which types of events are most harmful with respect to population health?
+
 2.Across the United States, which types of events have the greatest economic consequences?
