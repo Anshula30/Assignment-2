@@ -15,8 +15,6 @@ The data used foe the following data analysis was found at the following URL.
 
 "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
 
-## Data Prcessing
-
 For processing the data some liberaries were loaded
 
 Code Chunk-1
@@ -40,6 +38,101 @@ rawload <- read.csv("repdata-data-StormData.csv.bz2",
 
 num_EVtypes <- length(unique(rawload$EVTYPE))
 ```
+
+## Processing Of Data
+
+```{r prep-envir}
++library(data.table)
++library(stringdist)
++library(plyr)
++library(ggplot2)
++library(ggthemes)
++library(reshape2)
++graphics.off()  # set graphics to null device
++setInternet2(use = TRUE) # set environment variable for https download
++link_addr <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2" # Valid 8.12.2015
++```
++
++```{r load-the-file,cache=TRUE}
++download.file(link_addr, destfile="repdata-data-StormData.csv.bz2", method="auto")
++rawload <- read.csv("repdata-data-StormData.csv.bz2",
++                    header = TRUE, sep = ",",
++                    quote = "\"",stringsAsFactors = FALSE)  # 902297 observations in CSV file
++
++num_EVtypes <- length(unique(rawload$EVTYPE)) # calc how many event types are there in the source file data
++```
++
++### Processing the EVTYPE field
++
++After examining the raw data, inconsistencies in the event coding (e.g., hurricane, tornado, etc.) were noted. At present, there are 48 standard event types, according to the National Weather Service Directive 10-1605. However, there are `r num_EVtypes` unique event types in the raw data. Many of these non-standard event types in the source data are the result of data entry errors and inconsistencies in how events were classified over time (e.g., 'WINTERY MIX', 'Wintry mix', 'WINTER WEATHER/MIX').
++
++Consequently, a series of transformations were performed to map the event classifiers (field EVTYPE) found in the source data into the 48 standard event types used per the NWS Directive. First, corrections and updates to eliminate inconsistent abbreviations and phrasing were made. Next, the R function stringdistmatrix() was used to compare the text string of the partially updated EVTYPE records to the set of standard event types. The closest match was used in most cases. A sample of the old vs. new EVTYPEs were reviewed, indicating that the updated results were more consistent and more accurate than the source data. The processed event types were stored in a new field labeled EVTYPE_NEW.
++
++This event code update procedure was not intended to correct every issue. In fact, based on the sample reviewed, it introduced some new errors, but overall, it appears to have reduced the overall level of errors and inconsistencies sufficiently such that the processed data could be used to make reasonably accurate conclusions based on event type.
++
++```{r fix-evtype}
++
++valid_EV <- c("Astronomical Low Tide","Avalanche","Blizzard","Coastal Flood","Cold/Wind Chill","Debris Flow","Dense Fog","Dense Smoke","Drought","Dust Devil","Dust Storm","Excessive Heat","Extreme Cold/Wind Chill","Flash Flood","Flood","Frost/Freeze","Funnel Cloud","Freezing Fog","Hail","Heat","Heavy Rain","Heavy Snow","High Surf","High Wind","Hurricane","Ice Storm","Lake-Effect Snow","Lakeshore Flood","Lightning","Marine Hail","Marine High Wind","Marine Strong Wind","Marine Thunderstorm Wind","Rip Current","Sleet","Storm Surge/Tide","Strong Wind","Thunderstorm Wind","Tornado","Tropical Depression","Tropical Storm","Tsunami","Volcanic Ash","Waterspout","Wildfire","Winter Storm","Winter Weather")
++#valid_EV_two <- c("Seiche")  # not included - too many false positives
++
++# creates a vector of unique values present in the EVTYPE field of the raw data
++uniqs_EV_raw <- unique(rawload$EVTYPE)  
++
++# clean up abbreviations
++uniqs_EV_proc <- gsub("TSTM","THUNDERSTORM",uniqs_EV_raw)  # updates abbreviation for thunderstorms
++uniqs_EV_proc <- gsub("FLD","FLOOD",uniqs_EV_proc)  # updates abbreviation for flood
++uniqs_EV_proc <- gsub("FLOODS","FLOOD",uniqs_EV_proc)  # updates abbreviation for floods
++uniqs_EV_proc <- gsub("CURRENTS","CURRENT",uniqs_EV_proc)  # updates abbreviation for flood
++uniqs_EV_proc <- gsub("SNOW","WINTER STORM",uniqs_EV_proc)  # updates snow to winter storm
++uniqs_EV_proc <- gsub("RECORD","EXTREME",uniqs_EV_proc)  # updates phrase "record" to "extreme"
++uniqs_EV_proc <- gsub("FUNNEL","FUNNEL CLOUD",uniqs_EV_proc, fixed=TRUE)  # 
++uniqs_EV_proc <- gsub("WIND","HIGH WIND",uniqs_EV_proc, fixed=TRUE)  
++# changes instances of "Wind" to "High Wind"
++# change single words to the standardized "slash" term, e.g. COLD/WIND CHILL
++uniqs_EV_proc <- gsub("COLD","COLD/WIND CHILL",uniqs_EV_proc)  # 
++uniqs_EV_proc <- gsub("FROST","FROST/FREEZE",uniqs_EV_proc)  # 
++uniqs_EV_proc <- gsub("FREEZE","FROST/FREEZE",uniqs_EV_proc)  # 
++uniqs_EV_proc <- gsub("TIDE","SURGE/TIDE",uniqs_EV_proc)  # 
++uniqs_EV_proc <- gsub("SURGE","SURGE/TIDE",uniqs_EV_proc)  # 
++
++# truncate instances of Hurricane <name> and Hurricane/Typhoon to simply "Hurricane"
++for (i in seq_along(uniqs_EV_proc)){
++      if (grepl("HURRICANE",toupper(uniqs_EV_proc[i]))){
++            uniqs_EV_proc[i] <- "HURRICANE"
++      }
++}
++
++# build df with text "distance" EVTYPE in the raw data vs updated values using valid_EV
++EV_best<-as.data.frame(stringdistmatrix(toupper(uniqs_EV_proc),toupper(valid_EV),useNames="strings"))
++
++# initialize a temp list for storing all of the values in the loop below
++raw_lbl <-uniqs_EV_raw
++proc_lbl <-list()
++new_lbl <-list()
++
++for (i in seq_along(EV_best[,1])){
++      proc_lbl[i]<-row.names(EV_best[i,])  # indexes row name into orig_lbl vector
++      if (EV_best[i,which.min(EV_best[i,])]<100 ){new_lbl[i]<-names(which.min(EV_best[i,]))}
++      if (row.names(EV_best[i,]) == "SEICHE"){new_lbl[i]<-"SEICHE"}  
++      ## too many false positives if this is in valid_EV
++}
++
++# compile all of the values held in tmp list into a "tidy data" dataframe
++df_EV_tx <-as.data.frame(cbind(raw_lbl, proc_lbl, new_lbl),stringsAsFactors=FALSE) #consolidate 
++names(df_EV_tx)[1]<-"EVTYPE"
++names(df_EV_tx)[3]<-"EVTYPE_NEW"
++
++# use relevant columns of raw data
++short_raw<-rawload[,c("EVTYPE","FATALITIES","INJURIES","PROPDMG","PROPDMGEXP","CROPDMG","CROPDMGEXP")]
++
++# merge the dataframe of processed event types with the data frame of raw data
++simple_df<-merge(short_raw,df_EV_tx,by="EVTYPE", all.x=TRUE, all.y=FALSE, sort=FALSE)
++
++# clean up environment
++remove(short_raw, df_EV_tx)  
++
++```
++
 
 ## Conclusion
 
