@@ -147,7 +147,7 @@ bp<-barplot(rank_inj_top$Freq, names.arg = rank_inj_top$EVTYPE_NEW,
 text(0,bp, labels=NULL, cex=.65, offset=25)
 box("outer")
 ```
-According to the above plot we found that Tornadoes were the leading reason for population health. Than we had some other events like heat, thunderstorm etc.
+## According to the above plot we found that Tornadoes were the leading reason for population health. Than we had some other events like heat, thunderstorm etc. (Answer-1)
 
 Code Chunk-5, It shows the harm by the Event on the property and crop.
 
@@ -170,6 +170,6 @@ text(0,bp, labels=NULL, cex=.65, offset=25)
 box("outer")
 ```
 
-According to the above plot we firgured that Property damage is very much graeter than crop damage.Also flood and drought were the main reason for crop damage.
+## According to the above plot we firgured that Property damage is very much graeter than crop damage.Also flood and drought were the main reason for crop damage.(Answer-2)
 
 ## Thank You.
